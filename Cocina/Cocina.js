@@ -54,7 +54,9 @@ const catalogo = [
 
 ];
 
-// FILTER → baratos
+
+// FILTER → PRODUCTOS BARATOS
+
 function productosBaratos() {
 
     return catalogo.filter(
@@ -62,7 +64,9 @@ function productosBaratos() {
     );
 }
 
-// FILTER → caros
+
+// FILTER → PRODUCTOS CAROS
+
 function productosCaros() {
 
     return catalogo.filter(
@@ -70,7 +74,9 @@ function productosCaros() {
     );
 }
 
-// FILTER → bebidas
+
+// FILTER → BEBIDAS
+
 function buscarBebidas() {
 
     return catalogo.filter(
@@ -78,7 +84,9 @@ function buscarBebidas() {
     );
 }
 
-// FILTER → postres
+
+// FILTER → POSTRES
+
 function buscarPostres() {
 
     return catalogo.filter(
@@ -86,7 +94,9 @@ function buscarPostres() {
     );
 }
 
-// FILTER → categoría
+
+// FILTER → PRODUCTOS POR CATEGORÍA
+
 function productosPorCategoria(categoria) {
 
     return catalogo.filter(
@@ -94,7 +104,9 @@ function productosPorCategoria(categoria) {
     );
 }
 
-// FIND → buscar por ID
+
+// FIND → BUSCAR PRODUCTO POR ID
+
 function buscarProductoPorID(id) {
 
     return catalogo.find(
@@ -102,13 +114,18 @@ function buscarProductoPorID(id) {
     );
 }
 
-// FILTER → disponibles
+
+// FILTER → PRODUCTOS DISPONIBLES
+
 function productosDisponibles() {
 
     return catalogo.filter(
         producto => producto.disponible
     );
 }
+
+
+// EXPORTAR
 
 module.exports = {
 
