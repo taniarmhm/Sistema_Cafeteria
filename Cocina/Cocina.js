@@ -1,8 +1,4 @@
 
-// ======================================
-// MÓDULO COCINA - CATÁLOGO
-// ======================================
-
 const catalogo = [
     // ===== BEBIDAS =====
     { id: 1, nombre: "Café Moka Chico", categoria: "Bebida", precio: 30, porcion: "250 ml", disponible: true },
@@ -27,42 +23,42 @@ const catalogo = [
 // FUNCIONES
 // ==========================
 
-// PRODUCTOS BARATOS
+function mostrarMenu() {
+    console.log("\n===== MENÚ =====");
+
+    catalogo.forEach(p => {
+        console.log(`${p.id}. ${p.nombre} | $${p.precio} | ${p.categoria} | ${p.porcion}`);
+    });
+}
+
 function productosBaratos() {
     return catalogo.filter(p => p.precio <= 40);
 }
 
-// PRODUCTOS CAROS
 function productosCaros() {
     return catalogo.filter(p => p.precio >= 50);
 }
 
-// BEBIDAS
 function buscarBebidas() {
     return catalogo.filter(p => p.categoria === "Bebida");
 }
 
-// POSTRES
 function buscarPostres() {
     return catalogo.filter(p => p.categoria === "Postre");
 }
 
-// COMIDA
 function buscarComida() {
     return catalogo.filter(p => p.categoria === "Comida");
 }
 
-// POR CATEGORÍA
 function productosPorCategoria(categoria) {
     return catalogo.filter(p => p.categoria === categoria);
 }
 
-// BUSCAR POR ID
 function buscarProductoPorID(id) {
     return catalogo.find(p => p.id == id);
 }
 
-// DISPONIBLES
 function productosDisponibles() {
     return catalogo.filter(p => p.disponible);
 }
@@ -73,6 +69,7 @@ function productosDisponibles() {
 // ==========================
 module.exports = {
     catalogo,
+    mostrarMenu,
     productosBaratos,
     productosCaros,
     buscarBebidas,
