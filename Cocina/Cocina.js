@@ -1,87 +1,64 @@
-const productos = [ 
-    { id: 1, nombre: "Café", precio: 30, categoria: "Bebida" },
+const productos = [
+    // ===== BEBIDAS =====
+    { id: 1, nombre: "Café Moka Chico", categoria: "Bebida", precio: 30, porcion: "250 ml" },
+    { id: 2, nombre: "Café MokaMediano", categoria: "Bebida", precio: 40, porcion: "500 ml" },
+    { id: 3, nombre: "Café Moka Grande", categoria: "Bebida", precio: 55, porcion: "800 ml" },
 
-    { id: 2, nombre: "Capuchino", precio: 45, categoria: "Bebida" },
+    { id: 4, nombre: "Café Capuchino Chico", categoria: "Bebida", precio: 40, porcion: "250 ml" },
+    { id: 5, nombre: "Café Capuchino Mediano", categoria: "Bebida", precio: 50, porcion: "500 ml" },
+    { id: 6, nombre: "Café Capuchino Grande", categoria: "Bebida", precio: 65, porcion: "800 ml" },
 
-    { id: 3, nombre: "Pastel", precio: 50, categoria: "Postre" },
+    // ===== COMIDA =====
+    { id: 7, nombre: "Sincronizadas", categoria: "Comida", precio: 40, porcion: "2 piezas" },
+    { id: 8, nombre: "Sándwich de Pollo", categoria: "Comida", precio: 70, porcion: "1 unidad" },
 
-    { id: 4, nombre: "Galletas", precio: 25, categoria: "Postre" }
+    // ===== POSTRES =====
+    { id: 9, nombre: "Galletas de vainilla", categoria: "Postre", precio: 25, porcion: "Paquete de 4" },
+    { id: 10, nombre: "Pastel de chocolate", categoria: "Postre", precio: 50, porcion: "1 rebanada" }
 ];
 
-
-// MOSTRAR MENÚ
-
 function mostrarMenu() {
-
     console.log("\n===== MENÚ =====");
 
-    productos.forEach(producto => {
-
-        console.log(
-            `${producto.id}. ${producto.nombre} - $${producto.precio} - ${producto.categoria}`
-        );
+    productos.forEach(p => {
+        console.log(`${p.id}. ${p.nombre} | $${p.precio} | ${p.categoria} | ${p.porcion}`);
     });
 }
 
-
-// BUSCAR PRODUCTO POR ID
-
 function buscarProducto(id) {
+    const producto = productos.find(p => p.id === id);
 
-    return productos.find(
-        producto => producto.id === id
-    );
+    if (!producto) return "Producto no encontrado";
+
+    return `${producto.id}. ${producto.nombre} | $${producto.precio} | ${producto.categoria} | ${producto.porcion}`;
 }
-
-
-// PRODUCTOS BARATOS
 
 function productosBaratos() {
-
-    return productos.filter(
-        producto => producto.precio <= 30
-    );
+    return productos.filter(p => p.precio <= 30);
 }
-
-
-// PRODUCTOS CAROS
 
 function productosCaros() {
-
-    return productos.filter(
-        producto => producto.precio >= 45
-    );
+    return productos.filter(p => p.precio >= 45);
 }
-
-
-// BUSCAR BEBIDAS
 
 function buscarBebidas() {
-
-    return productos.filter(
-        producto => producto.categoria === "Bebida"
-    );
+    return productos.filter(p => p.categoria === "Bebida");
 }
-
-
-// BUSCAR POSTRES
 
 function buscarPostres() {
-
-    return productos.filter(
-        producto => producto.categoria === "Postre"
-    );
+    return productos.filter(p => p.categoria === "Postre");
 }
 
-
-// EXPORTAR
+function buscarComida() {
+    return productos.filter(p => p.categoria === "Comida");
+}
 
 module.exports = {
-
     mostrarMenu,
     buscarProducto,
     productosBaratos,
     productosCaros,
     buscarBebidas,
-    buscarPostres
+    buscarPostres,
+    buscarComida
 };

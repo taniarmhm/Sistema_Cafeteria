@@ -1,161 +1,90 @@
-const prompt = require("prompt-sync")();
-
+const readline = require("readline");
 const cocina = require("./cocina");
 
-let opcion = -1;
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
-
-// FUNCIÓN PARA MOSTRAR PRODUCTOS
-
-function mostrarProductos(lista){
-
-    if(lista.length === 0){
-
-        console.log("No hay productos.");
-        return;
-    }
-
-    console.log("\n==============================");
-
-    lista.forEach(producto => {
-
-        console.log(
-            `${producto.id}. ${producto.nombre} - $${producto.precio} - ${producto.categoria}`
-        );
-    });
-
-    console.log("==============================");
-}
-
-
-// MENÚ PRINCIPAL
-
-while(opcion != 0){
-
+function menu() {
     console.log("\n========================");
     console.log("     MÓDULO COCINA");
     console.log("========================");
-    console.log("1. Mostrar catálogo");
+    console.log("1. Mostrar menú");
     console.log("2. Buscar producto por ID");
-    console.log("3. Mostrar productos baratos");
-    console.log("4. Mostrar productos caros");
-    console.log("5. Mostrar bebidas");
-    console.log("6. Mostrar postres");
+    console.log("3. Productos baratos");
+    console.log("4. Productos caros");
+    console.log("5. Bebidas");
+    console.log("6. Postres");
+    console.log("7. Comida");
     console.log("0. Salir");
 
-    opcion = Number(
-        prompt("Selecciona opción: ")
-    );
+    rl.question("\nSelecciona una opción: ", opcion => {
 
+        switch (opcion) {
 
-    switch(opcion){
+            case "1":
+                cocina.mostrarMenu();
+                menu();
+                break;
 
-        // MOSTRAR CATÁLOGO
+            case "2":
+                rl.question("Ingresa ID del producto: ", id => {
+                    console.log(cocina.buscarProducto(Number(id)));
+                    menu();
+                });
+                break;
 
-        case 1:
+            case "3":
+                console.log("\n===== PRODUCTOS BARATOS =====");
+                cocina.productosBaratos().forEach(p => {
+                    console.log(`${p.id}. ${p.nombre} | $${p.precio} | ${p.porcion}`);
+                });
+                menu();
+                break;
 
-            cocina.mostrarMenu();
+            case "4":
+                console.log("\n===== PRODUCTOS CAROS =====");
+                cocina.productosCaros().forEach(p => {
+                    console.log(`${p.id}. ${p.nombre} | $${p.precio} | ${p.porcion}`);
+                });
+                menu();
+                break;
 
-            break;
+            case "5":
+                console.log("\n===== BEBIDAS =====");
+                cocina.buscarBebidas().forEach(p => {
+                    console.log(`${p.id}. ${p.nombre} | $${p.precio} | ${p.porcion}`);
+                });
+                menu();
+                break;
 
+            case "6":
+                console.log("\n===== POSTRES =====");
+                cocina.buscarPostres().forEach(p => {
+                    console.log(`${p.id}. ${p.nombre} | $${p.precio} | ${p.porcion}`);
+                });
+                menu();
+                break;
 
-        // BUSCAR PRODUCTO POR ID
+            case "7":
+                console.log("\n===== COMIDA =====");
+                cocina.buscarComida().forEach(p => {
+                    console.log(`${p.id}. ${p.nombre} | $${p.precio} | ${p.porcion}`);
+                });
+                menu();
+                break;
 
-        case 2:
+            case "0":
+                console.log("Saliendo...");
+                rl.close();
+                break;
 
-            let id = Number(
-                prompt("Ingresa ID del producto: ")
-            );
-
-            let producto =
-                cocina.buscarProducto(id);
-
-            if(producto){
-
-                console.log("\n===== PRODUCTO =====");
-
-                console.log(
-                    `${producto.id}. ${producto.nombre} - $${producto.precio} - ${producto.categoria}`
-                );
-            }
-
-            else{
-
-                console.log(
-                    "Producto no encontrado."
-                );
-            }
-
-            break;
-
-
-        // PRODUCTOS BARATOS
-
-        case 3:
-
-            console.log(
-                "\n===== PRODUCTOS BARATOS ====="
-            );
-
-            mostrarProductos(
-                cocina.productosBaratos()
-            );
-
-            break;
-
-
-        // PRODUCTOS CAROS
-
-        case 4:
-
-            console.log(
-                "\n===== PRODUCTOS CAROS ====="
-            );
-
-            mostrarProductos(
-                cocina.productosCaros()
-            );
-
-            break;
-
-
-        // BEBIDAS
-
-        case 5:
-
-            console.log("\n===== BEBIDAS =====");
-
-            mostrarProductos(
-                cocina.buscarBebidas()
-            );
-
-            break;
-
-
-        // POSTRES
-
-        case 6:
-
-            console.log("\n===== POSTRES =====");
-
-            mostrarProductos(
-                cocina.buscarPostres()
-            );
-
-            break;
-
-
-        // SALIR
-
-        case 0:
-
-            console.log("Sistema cerrado.");
-
-            break;
-
-
-        default:
-
-            console.log("Opción inválida.");
-    }
+            default:
+                console.log("Opción no válida");
+                menu();
+        }
+    });
 }
+
+menu();
