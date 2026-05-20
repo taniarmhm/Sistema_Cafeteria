@@ -18,7 +18,6 @@ function menu() {
     console.log("5. Bebidas");
     console.log("6. Postres");
     console.log("7. Comida");
-    console.log("8. Disponibles");
     console.log("0. Salir");
 
     rl.question("\nSelecciona una opción: ", opcion => {
@@ -31,14 +30,26 @@ function menu() {
                 break;
 
             case "2":
-                rl.question("Ingresa ID: ", id => {
-                    console.log(cocina.buscarProductoPorID(Number(id)));
+                rl.question("Ingresa ID del producto: ", id => {
+
+                    const producto = cocina.buscarProductoPorID(Number(id));
+
+                    if (producto) {
+                        console.log("\n===== PRODUCTO =====");
+                        console.log(`${producto.id}. ${producto.nombre}`);
+                        console.log(`Categoría: ${producto.categoria}`);
+                        console.log(`Precio: $${producto.precio}`);
+                        console.log(`Porción: ${producto.porcion}`);
+                    } else {
+                        console.log("Producto no encontrado");
+                    }
+
                     menu();
                 });
                 break;
 
             case "3":
-                console.log("\n===== BARATOS =====");
+                console.log("\n===== PRODUCTOS BARATOS =====");
                 cocina.productosBaratos().forEach(p =>
                     console.log(`${p.id}. ${p.nombre} | $${p.precio} | ${p.porcion}`)
                 );
@@ -46,7 +57,7 @@ function menu() {
                 break;
 
             case "4":
-                console.log("\n===== CAROS =====");
+                console.log("\n===== PRODUCTOS CAROS =====");
                 cocina.productosCaros().forEach(p =>
                     console.log(`${p.id}. ${p.nombre} | $${p.precio} | ${p.porcion}`)
                 );
@@ -72,14 +83,6 @@ function menu() {
             case "7":
                 console.log("\n===== COMIDA =====");
                 cocina.buscarComida().forEach(p =>
-                    console.log(`${p.id}. ${p.nombre} | $${p.precio} | ${p.porcion}`)
-                );
-                menu();
-                break;
-
-            case "8":
-                console.log("\n===== DISPONIBLES =====");
-                cocina.productosDisponibles().forEach(p =>
                     console.log(`${p.id}. ${p.nombre} | $${p.precio} | ${p.porcion}`)
                 );
                 menu();
